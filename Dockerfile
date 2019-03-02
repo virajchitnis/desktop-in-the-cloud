@@ -1,4 +1,4 @@
-FROM ubuntu:18.04
+FROM ubuntu:18.10
 MAINTAINER chitnisviraj@gmail.com
 
 # VNC port
@@ -6,10 +6,12 @@ EXPOSE 5900
 
 # Install the necessary software
 RUN apt-get update; \
-    DEBIAN_FRONTEND=noninteractive apt-get install -y openbox python tightvncserver firefox lxterminal
+    DEBIAN_FRONTEND=noninteractive apt-get install -y openbox python tightvncserver firefox lxterminal locales ttf-ubuntu-font-family
 
-# Set timezone
+# Setup system
 RUN ln -sf /usr/share/zoneinfo/$TZ /etc/localtime
+RUN locale-gen en_GB.UTF-8; \
+    update-locale LANG=en_GB.UTF-8
 
 # Create non-root user
 RUN adduser --disabled-password --gecos "" cloud
