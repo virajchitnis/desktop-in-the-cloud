@@ -5,8 +5,11 @@ MAINTAINER chitnisviraj@gmail.com
 EXPOSE 5900
 
 # Install the necessary software
+ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update; \
-    DEBIAN_FRONTEND=noninteractive apt-get install -y openbox python tightvncserver firefox lxterminal locales ttf-ubuntu-font-family
+    apt-get install -y openbox python tightvncserver firefox lxterminal locales ttf-ubuntu-font-family
+RUN apt-get clean; \
+    rm -rf /var/cache/* /var/log/apt/* /var/lib/apt/lists/* /tmp/*
 
 # Setup system
 RUN ln -sf /usr/share/zoneinfo/$TZ /etc/localtime
